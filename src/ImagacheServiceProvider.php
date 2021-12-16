@@ -2,6 +2,7 @@
 
 namespace Imagache;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class ImagacheServiceProvider extends ServiceProvider
@@ -23,6 +24,21 @@ class ImagacheServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->registerRoutes();
+    }
+
+    /**
+     * Register all routes for the package.
+     * 
+     * @return void
+     */
+    protected function registerRoutes()
+    {
+        Route::prefix('imagache')->middleware('api')->name('imagache.')
+            ->group(function() {
+                $this->loadRoutesFrom(
+                    __DIR__.'/../routes/api.php'
+                );
+            });
     }
 }
