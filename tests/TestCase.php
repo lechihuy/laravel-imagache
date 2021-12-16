@@ -1,9 +1,9 @@
 <?php
 
-namespace Package\Tests;
+namespace Imagache\Tests;
 
 use Mockery;
-use Package\PackageServiceProvider;
+use Imagache\ImagacheServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -21,7 +21,7 @@ abstract class TestCase extends BaseTestCase
     protected function getPackageProviders($app): array
     {
         return [
-            PackageServiceProvider::class,
+            ImagacheServiceProvider::class,
         ];
     }
 

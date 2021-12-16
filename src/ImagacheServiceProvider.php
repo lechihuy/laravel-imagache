@@ -1,10 +1,10 @@
 <?php
 
-namespace Package;
+namespace Imagache;
 
 use Illuminate\Support\ServiceProvider;
 
-class PackageServiceProvider extends ServiceProvider
+class ImagacheServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.

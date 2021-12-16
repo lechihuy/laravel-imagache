@@ -1,7 +1,7 @@
 {
-    "name": "vendor/package",
-    "description": "The skeleton of the package in Laravel framework.",
-    "homepage": "https://domain.com",
+    "name": "lechihuy/laravel-imagache",
+    "description": "Suport API for cache images in Laravel framework.",
+    "homepage": "https://github.com/lechihuy/laravel-imagache",
     "authors": [
         {
             "name": "Lê Chí Huy",
@@ -19,18 +19,18 @@
     },
     "autoload": {
         "psr-4": {
-            "Package\\": "src/"
+            "Imagache\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Package\\Tests\\": "tests/"
+            "Imagache\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Package\\PackageServiceProvider"
+                "Imagache\\ImagacheServiceProvider"
             ]
         }
     }

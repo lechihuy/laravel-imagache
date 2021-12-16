@@ -1,8 +1,8 @@
 <?php
 
-namespace Package\Tests\Unit;
+namespace Imagache\Tests\Unit;
 
-use Package\Tests\TestCase;
+use Imagache\Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
