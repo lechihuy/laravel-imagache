@@ -17,13 +17,23 @@ class ShowImageController extends Controller
      */
     public function __invoke(ShowImageRequest $request) 
     {
-        if (Cache::has($request->image)) {
-            return Cache::get($request->image);
+        $filter = collect(array_filter($request->validated()));
+        $filterHash = $filter->count() ? '_'.$filter->toJson() : null;
+        $key = $request->image.$filterHash;
+
+        if (Cache::has($key)) {
+            return Cache::get($key);
         }
 
-        Cache::put($request->image, Image::make(Storage::get('images/'.$request->image))
-            ->response());
+        $image = Image::make(Storage::get('images/'.$request->image));
 
-        return Cache::get($request->image);
+        if ($filter->has(['w', 'h'])) {
+            logger(1);
+            $image->resize((int) $filter->get('w'), (int) $filter->get('h'));
+        }
+
+        Cache::put($key, $image->response());
+
+        return $image->response();
     }
 }

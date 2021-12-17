@@ -25,7 +25,8 @@ class ShowImageRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'w' => 'bail|nullable|string|numeric|gt:0',
+            'h' => 'bail|nullable|string|numeric|gt:0',
         ];
     }
 }
