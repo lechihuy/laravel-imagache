@@ -2,4 +2,6 @@
 
 return [
     'prefix' => 'images',
+
+    'middleware' => ['api'],
 ];

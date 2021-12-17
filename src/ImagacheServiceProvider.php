@@ -14,7 +14,9 @@ class ImagacheServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/imagache.php', 'imagache'
+        );
     }
 
     /**
@@ -34,7 +36,9 @@ class ImagacheServiceProvider extends ServiceProvider
      */
     protected function registerRoutes()
     {
-        Route::prefix('imagache')->middleware('api')->name('imagache.')
+        Route::prefix(config('imagache.prefix'))
+            ->middleware(config('imagache.middleware'), [])
+            ->name('imagache.')
             ->group(function() {
                 $this->loadRoutesFrom(
                     __DIR__.'/../routes/api.php'
