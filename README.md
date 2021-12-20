@@ -45,9 +45,17 @@ Ta có thể cấu hình tại file `config/imagache.php` của package bao gồ
 Package cung cấp 2 API gồm upload và lấy ảnh.
 
 ### API upload ảnh
+
+> Hiện hỗ trợ các file ảnh jpg, jpeg, png, bmp, gif, svg, và webp.
+> 
+> Nếu file ảnh gửi có tên trùng với file đã tồn tại trong hệ thống thì file cũ sẽ bị override.
+>
+> Tên ảnh chỉ hỗ trợ trong phạm vi `[A-Za-z0-9\.\_\/\-]+` để bảo mật.
+
 ```
 POST /{prefix}/upload
 ```
+* `{prefix}`: Prefix của API trong file cấu hình
 
 **Header**
 ```
@@ -59,10 +67,6 @@ Accept: application/json
 ```
 images[]: Danh sách các file ảnh upload lên hệ thống
 ```
-
-> Hiện hỗ trợ các file ảnh jpg, jpeg, png, bmp, gif, svg, và webp.
-> 
-> Nếu file ảnh gửi có tên trùng với file đã tồn tại trong hệ thống thì file cũ sẽ bị override.
 
 **Response**
 * 200 OK
@@ -89,3 +93,33 @@ images[]: Danh sách các file ảnh upload lên hệ thống
         }
     }
     ```
+
+### API lấy hình ảnh
+
+> Hỗ trợ tự động giữ tỉ lệ của ảnh khi resize
+>
+> Không upsize khi kích thước nhập vào vượt quá kích thước gốc
+>
+> Cache ảnh vĩnh viễn
+
+```
+POST /{prefix}/{image}
+```
+* `{prefix}`: Prefix của API trong file cấu hình
+* `{image}`: Tên ảnh cần lấy
+
+**Header**
+```
+Accept: application/json
+```
+
+**Query parameter**
+```
+w: Chiều dài của ảnh (optional)
+h: Chiều cao của ảnh (optional)
+```
+
+**Response**
+* 200 OK
+* 404 Not found
+
