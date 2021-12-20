@@ -22,23 +22,23 @@ class ShowImageController extends Controller
         $key = $request->image.$filterHash;
 
         if (Cache::has($key)) {
-            return Cache::get($key);
+            $image = Image::make(Cache::get($key));
+        } else {
+            $image = Image::make(Storage::get('images/'.$request->image));
+            
+            // Resize  image
+            if ($filter->has('w') || $filter->has('h')) {
+                $w = $filter->get('w', null);
+                $h = $filter->get('h', null);
+
+                $image->resize($filter->get('w'), $filter->get('h'), function($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+            }
+
+            Cache::forever($key, (string) $image->encode('data-url'));
         }
-
-        $image = Image::make(Storage::get('images/'.$request->image));
-
-        // Resize  image
-        if ($filter->has('w') || $filter->has('h')) {
-            $w = $filter->get('w', null);
-            $h = $filter->get('h', null);
-
-            $image->resize($filter->get('w'), $filter->get('h'), function($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
-        }
-
-        Cache::forever($key, $image->response());
 
         return $image->response();
     }
