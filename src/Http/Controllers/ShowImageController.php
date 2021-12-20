@@ -38,7 +38,7 @@ class ShowImageController extends Controller
             });
         }
 
-        Cache::put($key, $image->response());
+        Cache::forever($key, $image->response());
 
         return $image->response();
     }
