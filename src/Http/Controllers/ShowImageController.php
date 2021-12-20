@@ -27,9 +27,15 @@ class ShowImageController extends Controller
 
         $image = Image::make(Storage::get('images/'.$request->image));
 
-        if ($filter->has(['w', 'h'])) {
-            logger(1);
-            $image->resize((int) $filter->get('w'), (int) $filter->get('h'));
+        // Resize  image
+        if ($filter->has('w') || $filter->has('h')) {
+            $w = $filter->get('w', null);
+            $h = $filter->get('h', null);
+
+            $image->resize($filter->get('w'), $filter->get('h'), function($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
         }
 
         Cache::put($key, $image->response());
