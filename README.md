@@ -61,34 +61,31 @@ images[]: Danh sách các file ảnh upload lên hệ thống
 ```
 
 > Hiện hỗ trợ các file ảnh jpg, jpeg, png, bmp, gif, svg, và webp.
+> 
 > Nếu file ảnh gửi có tên trùng với file đã tồn tại trong hệ thống thì file cũ sẽ bị override.
 
 **Response**
-<details>
-<summary>200 OK</summary>
-```
-{
-    "urls": [
-        "http://localhost:8000/images/IMG_1672.JPG",
-        "http://localhost:8000/images/IMG_1678.JPG"
-    ]
-}
-```
-</details>
-
-<details>
-<summary>422 Unprocessable Content</summary>
-```
-{
-    "message": "The given data was invalid.",
-    "errors": {
-        "images.0": [
-            "The images.0 must be an image."
-        ],
-        "images.1": [
-            "The images.1 must be an image."
+* 200 OK
+    ```json
+    {
+        "urls": [
+            "http://localhost:8000/images/IMG_1672.JPG",
+            "http://localhost:8000/images/IMG_1678.JPG"
         ]
     }
-}
-```
-</details>
+    ```
+
+* 422 Unprocessable Content
+    ```json
+    {
+        "message": "The given data was invalid.",
+        "errors": {
+            "images.0": [
+                "The images.0 must be an image."
+            ],
+            "images.1": [
+                "The images.1 must be an image."
+            ]
+        }
+    }
+    ```
