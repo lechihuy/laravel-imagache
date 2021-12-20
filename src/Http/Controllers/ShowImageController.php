@@ -20,9 +20,9 @@ class ShowImageController extends Controller
         $filter = collect(array_filter($request->validated()));
         $filterHash = $filter->count() ? '_'.$filter->toJson() : null;
         $key = $request->image.$filterHash;
-
-        if (Cache::has($key)) {
-            $image = Image::make(Cache::get($key));
+        
+        if ($cache = Cache::get($key)) {
+            $image = Image::make($cache);
         } else {
             $image = Image::make(Storage::get('images/'.$request->image));
             
